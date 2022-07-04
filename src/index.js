@@ -23,7 +23,7 @@
 const { Blockchain } = require("./blockchain");
 
 // Create new instance of Blockchain class
-const difficulty = 5;
+const difficulty = 4;
 const strBlockChain = new Blockchain(difficulty);
 
 // Mine first block

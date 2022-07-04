@@ -100,6 +100,11 @@ class Blockchain {
    * mining process.
    */
   minePendingBlockContents() {
+    if (this.pendingBlockContents.length === 0) {
+      console.log("No Block Contents to Mine!");
+      return;
+    }
+    
     const block = new Block(
       Date.now(),
       this.pendingBlockContents,
