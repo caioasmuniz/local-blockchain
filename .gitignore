@@ -128,3 +128,7 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+report/report.aux
+report/report.fdb_latexmk
+report/report.fls
+report/report.synctex.gz
