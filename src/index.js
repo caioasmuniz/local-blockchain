@@ -38,7 +38,6 @@ MENU
 5 -> Verificar integridade da blockchain
 6 -> Exibir a blockchain
 7 -> Salvar a blockchain em um arquivo
-8 -> Alterar o conteudo da blockchain (para fins de teste)
 
 Escolha uma opção: 
 `;
