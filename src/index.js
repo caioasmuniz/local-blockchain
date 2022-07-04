@@ -20,48 +20,35 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-const { Blockchain, Transaction } = require("./blockchain");
-const EC = require("elliptic").ec;
-const ec = new EC("secp256k1");
-
-// Your private key goes here
-const myKey = ec.keyFromPrivate(
-  "7c4c45907dec40c91bab3480c39032e90049f1a44f3e18c3e07c23e3273995cf"
-);
-
-// From that we can calculate your public key (which doubles as your wallet address)
-const myWalletAddress = myKey.getPublic("hex");
+const { Blockchain } = require("./blockchain");
 
 // Create new instance of Blockchain class
-const savjeeCoin = new Blockchain();
+const difficulty = 5;
+const strBlockChain = new Blockchain(difficulty);
 
 // Mine first block
-savjeeCoin.minePendingTransactions(myWalletAddress);
+strBlockChain.minePendingBlockContents();
 
 // Create a transaction & sign it with your key
-const tx1 = new Transaction(myWalletAddress, "address2", 100);
-tx1.signTransaction(myKey);
-savjeeCoin.addTransaction(tx1);
+const blockContent = "Este eh o conteudo do primeiro bloco";
+strBlockChain.addBlockContent(blockContent);
 
 // Mine block
-savjeeCoin.minePendingTransactions(myWalletAddress);
+strBlockChain.minePendingBlockContents();
 
 // Create second transaction
-const tx2 = new Transaction(myWalletAddress, "address1", 50);
-tx2.signTransaction(myKey);
-savjeeCoin.addTransaction(tx2);
+const blockContent2 = "Este eh o conteudo do segundo bloco";
+strBlockChain.addBlockContent(blockContent2);
 
 // Mine block
-savjeeCoin.minePendingTransactions(myWalletAddress);
+strBlockChain.minePendingBlockContents();
 
 console.log();
-console.log(
-  `Balance of xavier is ${savjeeCoin.getBalanceOfAddress(myWalletAddress)}`
-);
+console.log(strBlockChain);
 
 // Uncomment this line if you want to test tampering with the chain
 // savjeeCoin.chain[1].transactions[0].amount = 10;
 
 // Check if the chain is valid
 console.log();
-console.log("Blockchain valid?", savjeeCoin.isChainValid() ? "Yes" : "No");
+console.log("Blockchain valid?", strBlockChain.isChainValid() ? "Yes" : "No");
