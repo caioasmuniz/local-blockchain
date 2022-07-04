@@ -21,37 +21,72 @@
 // SOFTWARE.
 
 const { Blockchain } = require("./blockchain");
-// Create new instance of Blockchain class
-const difficulty = 4;
+const readline = require("readline");
+
+const rl = readline.createInterface(process.stdin, process.stdout);
+let difficulty = 1;
 const strBlockChain = new Blockchain();
 
-strBlockChain.readChainFromFile("./chain.json");
+rl.setPrompt(`
+  <---> strBlockChain <--->
 
-// Mine first block
-strBlockChain.minePendingBlockContents(difficulty);
+  MENU
+  1 -> Ler blockchain de um arquivo
+  2 -> Minerar blocos pendentes
+  3 -> Selecionar dificuldade de mineração (atual: ${difficulty})
+  4 -> Criar novo bloco
+  5 -> Verificar integridade da blockchain
+  6 -> Exibir a blockchain
+  7 -> Salvar a blockchain em um arquivo
+  8 -> Alterar o conteudo da blockchain (para fins de teste)
 
-// Create a transaction & sign it with your key
-const blockContent = "Este eh o conteudo do primeiro bloco";
-strBlockChain.addBlockContent(blockContent);
+  Escolha uma opção: 
+  `);
 
-// Mine block
-strBlockChain.minePendingBlockContents(difficulty);
+rl.prompt();
 
-// Create second transaction
-const blockContent2 = "Este eh o conteudo do segundo bloco";
-strBlockChain.addBlockContent(blockContent2);
+rl.on("line", (option) => {
+  switch (parseInt(option)) {
+    case 1:
+      strBlockChain.readChainFromFile("./chain.json");
+      break;
 
-// Mine block
-strBlockChain.minePendingBlockContents(difficulty);
+    case 2:
+      strBlockChain.minePendingBlockContents(difficulty);
+      break;
 
-console.log();
-console.log(strBlockChain.chain);
+    case 3:
+      rl.question("Insira a nova dificuldade: ", (newDifficulty) => {
+        difficulty = newDifficulty;
+      });
+      break;
 
-strBlockChain.writeChainToFile("./chain.json");
+    case 4:
+      rl.question("Insira o conteúdo do novo bloco: ", (blockContent) => {
+        strBlockChain.addBlockContent(blockContent);
+      });
+      break;
+
+    case 5:
+      console.log(
+        strBlockChain.isChainValid()
+          ? "A blockchain eh valida"
+          : "A blockchain nao eh valida"
+      );
+      break;
+
+    case 6:
+      console.log("case 6");
+      console.log(strBlockChain.chain);
+      break;
+
+    case 7:
+      strBlockChain.writeChainToFile("./chain.json");
+      break;
+  }
+  rl.prompt();
+});
+
 
 // Uncomment this line if you want to test tampering with the chain
 // savjeeCoin.chain[1].transactions[0].amount = 10;
-
-// Check if the chain is valid
-console.log();
-console.log("Blockchain valid?", strBlockChain.isChainValid() ? "Yes" : "No");

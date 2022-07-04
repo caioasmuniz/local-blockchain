@@ -131,8 +131,6 @@ class Blockchain {
 
     console.log("Block successfully mined!");
     this.chain.push(block);
-
-    this.pendingBlockContents = [];
   }
 
   /**
