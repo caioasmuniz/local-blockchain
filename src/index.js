@@ -44,7 +44,7 @@ strBlockChain.addBlockContent(blockContent2);
 strBlockChain.minePendingBlockContents();
 
 console.log();
-console.log(strBlockChain);
+console.log(strBlockChain.chain);
 
 // Uncomment this line if you want to test tampering with the chain
 // savjeeCoin.chain[1].transactions[0].amount = 10;

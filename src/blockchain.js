@@ -21,8 +21,6 @@
 // SOFTWARE.
 
 const crypto = require("crypto");
-const EC = require("elliptic").ec;
-const ec = new EC("secp256k1");
 
 class Block {
   /**
@@ -72,6 +70,10 @@ class Block {
 }
 
 class Blockchain {
+  /**
+   * @param {number} difficulty
+   */
+
   constructor(difficulty) {
     this.chain = [this.createGenesisBlock()];
     this.difficulty = difficulty;
@@ -104,10 +106,10 @@ class Blockchain {
       console.log("No Block Contents to Mine!");
       return;
     }
-    
+
     const block = new Block(
       Date.now(),
-      this.pendingBlockContents,
+      this.pendingBlockContents.shift(),
       this.getLatestBlock().hash
     );
     block.mineBlock(this.difficulty);
