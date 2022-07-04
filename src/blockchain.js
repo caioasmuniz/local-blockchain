@@ -21,6 +21,7 @@
 // SOFTWARE.
 
 const crypto = require("crypto");
+const fs = require("fs");
 
 class Block {
   /**
@@ -28,12 +29,14 @@ class Block {
    * @param {string} blockContent
    * @param {string} previousHash
    */
-  constructor(timestamp, blockContent, previousHash = "") {
+
+  constructor({ previousHash = "", timestamp, blockContent, nonce = 0, hash }) {
     this.previousHash = previousHash;
     this.timestamp = timestamp;
     this.blockContent = blockContent;
-    this.nonce = 0;
-    this.hash = this.calculateHash();
+    this.nonce = nonce;
+    if (hash) this.hash = hash;
+    else this.hash = this.calculateHash();
   }
 
   /**
@@ -70,13 +73,8 @@ class Block {
 }
 
 class Blockchain {
-  /**
-   * @param {number} difficulty
-   */
-
-  constructor(difficulty) {
+  constructor() {
     this.chain = [this.createGenesisBlock()];
-    this.difficulty = difficulty;
     this.pendingBlockContents = [];
   }
 
@@ -84,7 +82,22 @@ class Blockchain {
    * @returns {Block}
    */
   createGenesisBlock() {
-    return new Block(Date.parse("2017-01-01"), [], "0");
+    return new Block({
+      timestamp: Date.parse("2017-01-01"),
+      blockContent: "Genesis Block",
+    });
+  }
+
+  readChainFromFile(path) {
+    let file = JSON.parse(fs.readFileSync(path, "utf8"));
+    this.chain = [];
+    for (const block in file) {
+      this.chain.push(new Block(block));
+    }
+  }
+
+  writeChainToFile(path) {
+    fs.writeFileSync(path, JSON.stringify(this.chain));
   }
 
   /**
@@ -100,19 +113,20 @@ class Blockchain {
   /**
    * Takes all the pending BlockContents, puts them in a Block and starts the
    * mining process.
+   * @param {number} difficulty
    */
-  minePendingBlockContents() {
+  minePendingBlockContents(difficulty) {
     if (this.pendingBlockContents.length === 0) {
       console.log("No Block Contents to Mine!");
       return;
     }
 
-    const block = new Block(
-      Date.now(),
-      this.pendingBlockContents.shift(),
-      this.getLatestBlock().hash
-    );
-    block.mineBlock(this.difficulty);
+    const block = new Block({
+      timestamp: Date.now(),
+      blockContent: this.pendingBlockContents.shift(),
+      previousHash: this.getLatestBlock().hash,
+    });
+    block.mineBlock(difficulty);
 
     console.log("Block successfully mined!");
     this.chain.push(block);
