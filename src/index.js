@@ -25,7 +25,7 @@ const { Blockchain } = require("./blockchain");
 const difficulty = 4;
 const strBlockChain = new Blockchain();
 
-// strBlockChain.readChainFromFile("./chain.json");
+strBlockChain.readChainFromFile("./chain.json");
 
 // Mine first block
 strBlockChain.minePendingBlockContents(difficulty);
@@ -46,6 +46,7 @@ strBlockChain.minePendingBlockContents(difficulty);
 
 console.log();
 console.log(strBlockChain.chain);
+
 strBlockChain.writeChainToFile("./chain.json");
 
 // Uncomment this line if you want to test tampering with the chain

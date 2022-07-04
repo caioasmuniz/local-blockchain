@@ -91,9 +91,10 @@ class Blockchain {
   readChainFromFile(path) {
     let file = JSON.parse(fs.readFileSync(path, "utf8"));
     this.chain = [];
-    for (const block in file) {
+    for (const block of file) {
       this.chain.push(new Block(block));
     }
+    console.log(this.chain);
   }
 
   writeChainToFile(path) {
