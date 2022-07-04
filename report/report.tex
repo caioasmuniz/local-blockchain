@@ -2,6 +2,9 @@
 \usepackage{listings}
 \usepackage{color}
 \usepackage{hyperref}
+\usepackage{graphicx}
+\graphicspath{ {./src/} }
+
 
 \title{Atividade Prática sobre Blockchain - Segurança e Auditoria de Sistemas}
 \author{Caio Augusto de Souza Muniz, 2050889}
@@ -42,17 +45,45 @@ Para o desenvolvimento da aplicação foram utilizadas as seguintes ferramentas:
     \item Foi utilizado como base o repositório \href{https://github.com/Savjee/SavjeeCoin}{\textit{Savjee/SavjeeCoin}}, disponível no \textit{GitHub}.
 \end{itemize}
 \section{Metodologia}
+O código-fonte da aplicação está disponível em: \href{https://github.com/caioasmuniz/local-blockchain}{\textit{caioasmuniz/local-blockchain}}
+
 A interface da aplicação é feita pela linha de comando, esta apresenta um menu com as seguintes opções:
 \begin{enumerate}
     \item Ler blockchain de um arquivo;
     \item Minerar blocos pendentes;
     \item Selecionar dificuldade de mineração;
     \item Criar novo bloco;
-    \item Verificar integridade da blockchain;
-    \item Exibir a blockchain;
-    \item Salvar a blockchain em um arquivo;
+\item Verificar integridade da \textit{blockchain};
+\item Exibir a \textit{blockchain};
+\item Salvar a \textit{blockchain} em um arquivo;
 \end{enumerate}
 \section{Análise do Impacto da Dificuldade}
+Para a observação do impacto da dificuldade no tempo de execução do algoritmo, foi utilizado o \textit{script} "\textit{test-difficulty.js}", presente no \href{https://github.com/caioasmuniz/local-blockchain}{repositório da atividade}. O \textit{script} continuamente insere e minera uma quantidade de blocos na \textit{blockchain}, enquanto monitora e loga a duração de cada inserção. Este processo foi realizado para cada uma das dificuldades de 1 a 6, tendo 20 blocos gerados e minerados em cada uma das dificuldades. Após a execução do script, foi gerada a seguinte tabela com média e desvio padrão do tempo de execução:
+\begin{table}[h]
+  \begin{tabular}{| c | c | c |}
+    \hline
+    Dificuldade & Tempo Médio de execução (ms) & Desvio Padrão (ms) \\
+    \hline
+    1           & 0.3                          & 0.4775             \\
+    \hline
+    2           & 2.95                         & 3.4301             \\
+    \hline
+    3           & 15.4                         & 15.6277            \\
+    \hline
+    4           & 287.4                        & 207.9394           \\
+    \hline
+    5           & 4366.15                      & 4004.0907          \\
+    \hline
+    6           & 87177.7                      & 59671.2204         \\
+    \hline
+  \end{tabular}
+  \caption{Tabela de tempo médio de execução e desvio padrão de acordo com a dificuldade}
+\end{table}
 
+Além disso, foi gerado o seguinte gráfico do tempo médio de mineração pela dificuldade:
+\begin{figure}[h]
+  \includegraphics[width=\textwidth]{difficulty-graph.jpg}
+  \caption{Gráfico de Dificuldade pelo tempo de meineração}
+\end{figure}
 
 \end{document}
