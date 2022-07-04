@@ -67,16 +67,15 @@ class Block {
       this.hash = this.calculateHash();
     }
 
-    debug(`Block mined: ${this.hash}`);
+    console.log(`Block mined: ${this.hash}`);
   }
 }
 
 class Blockchain {
-  constructor() {
+  constructor(difficulty) {
     this.chain = [this.createGenesisBlock()];
-    this.difficulty = 2;
+    this.difficulty = difficulty;
     this.pendingBlockContents = [];
-    this.miningReward = 100;
   }
 
   /**
@@ -108,7 +107,7 @@ class Blockchain {
     );
     block.mineBlock(this.difficulty);
 
-    debug("Block successfully mined!");
+    console.log("Block successfully mined!");
     this.chain.push(block);
 
     this.pendingBlockContents = [];
@@ -122,7 +121,7 @@ class Blockchain {
    */
   addBlockContent(blockContent) {
     this.pendingBlockContents.push(blockContent);
-    debug("block content added: %s", blockContent);
+    console.log(`block content added: ${blockContent}`);
   }
 
   /**
