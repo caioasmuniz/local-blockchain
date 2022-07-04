@@ -116,21 +116,17 @@ class Blockchain {
   }
 
   /**
-   * Takes all the pending BlockContents, puts them in a Block and starts the
-   * mining process.
    * @param {number} difficulty
    */
   minePendingBlockContents(difficulty) {
     while (this.pendingBlockContents.length > 0) {
-      this.mineOneBlock();
+      this.mineOneBlock(difficulty);
     }
     console.log("No Block Contents to Mine!");
     return;
   }
 
   /**
-   * Takes all the pending BlockContents, puts them in a Block and starts the
-   * mining process.
    * @param {number} difficulty
    */
   mineOneBlock(difficulty) {

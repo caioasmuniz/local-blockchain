@@ -32,31 +32,50 @@
 \section{Introdução}
 A aplicação relatada neste relatório de atividade assíncrona tem como objetivos:
 \begin{itemize}
-    \item Criação de uma aplicação de blockchain local
-    \item Implementação de um algoritmo de prova por trabalho local onde a dificuldade é definida pelo usuário da aplicação
-    \item Armazenamento os blocos validados em um arquivo
-    \item Implementação de rotina de verificação de integridade dos blocos.
-    \item O conteúdo presente nos blocos são \textit{strings}.
+\item Criação de uma aplicação de blockchain local
+\item Implementação de um algoritmo de prova por trabalho local onde a dificuldade é definida pelo usuário da aplicação
+\item Armazenamento os blocos validados em um arquivo
+\item Implementação de rotina de verificação de integridade dos blocos.
+\item O conteúdo presente nos blocos são \textit{strings}.
 \end{itemize}
 \section{Ferramentas}
 Para o desenvolvimento da aplicação foram utilizadas as seguintes ferramentas:
 \begin{itemize}
-    \item A linguagem escolhida foi o \textit{Javascript}, através do compilador \textit{Node.js} em sua versão 16.15;
-    \item Foi utilizado como base o repositório \href{https://github.com/Savjee/SavjeeCoin}{\textit{Savjee/SavjeeCoin}}, disponível no \textit{GitHub}.
+\item A linguagem escolhida foi o \textit{Javascript}, através do compilador \textit{Node.js} em sua versão 16.15;
+\item Foi utilizado como base o repositório \href{https://github.com/Savjee/SavjeeCoin}{\textit{Savjee/SavjeeCoin}}, disponível no \textit{GitHub}.
 \end{itemize}
 \section{Metodologia}
 O código-fonte da aplicação está disponível em: \href{https://github.com/caioasmuniz/local-blockchain}{\textit{caioasmuniz/local-blockchain}}
 
 A interface da aplicação é feita pela linha de comando, esta apresenta um menu com as seguintes opções:
-\begin{enumerate}
-    \item Ler blockchain de um arquivo;
-    \item Minerar blocos pendentes;
-    \item Selecionar dificuldade de mineração;
-    \item Criar novo bloco;
-\item Verificar integridade da \textit{blockchain};
-\item Exibir a \textit{blockchain};
-\item Salvar a \textit{blockchain} em um arquivo;
-\end{enumerate}
+\subsection{Ler blockchain de um arquivo;}
+\subsection{Minerar blocos pendentes;}
+
+\begin{figure}[h!]
+  \includegraphics[width=\textwidth]{mineBlock.png}
+  \caption{Captura de tela da função de mineração do bloco}
+\end{figure}
+
+\subsection{Selecionar dificuldade de mineração;}
+\subsection{Criar novo bloco;}
+
+\begin{figure}[h!]
+  \includegraphics[width=\textwidth]{insertBlock.png}
+  \caption{Captura de tela da função de criação de um bloco}
+\end{figure}
+
+\subsection{Verificar integridade da \textit{blockchain};}
+\subsection{Exibir a \textit{blockchain};}
+\begin{figure}[h!]
+  \includegraphics[width=\textwidth]{showChain.png}
+  \caption{Captura de tela da função exibição da \textit{blockchain}}
+\end{figure}
+
+\subsection{Salvar a \textit{blockchain} em um arquivo;}
+\begin{figure}[h!]
+  \includegraphics[width=\textwidth]{outputFile.png}
+  \caption{Conteúdo do arquivo contendo a \textit{blockchain}}
+\end{figure}
 \section{Análise do Impacto da Dificuldade}
 Para a observação do impacto da dificuldade no tempo de execução do algoritmo, foi utilizado o \textit{script} "\textit{test-difficulty.js}", presente no \href{https://github.com/caioasmuniz/local-blockchain}{repositório da atividade}. O \textit{script} continuamente insere e minera uma quantidade de blocos na \textit{blockchain}, enquanto monitora e loga a duração de cada inserção. Este processo foi realizado para cada uma das dificuldades de 1 a 6, tendo 20 blocos gerados e minerados em cada uma das dificuldades. Após a execução do script, foi gerada a seguinte tabela com média e desvio padrão do tempo de execução:
 \begin{table}[h]
@@ -81,9 +100,9 @@ Para a observação do impacto da dificuldade no tempo de execução do algoritm
 \end{table}
 
 Além disso, foi gerado o seguinte gráfico do tempo médio de mineração pela dificuldade:
-\begin{figure}[h]
+\begin{figure}[h!]
   \includegraphics[width=\textwidth]{difficulty-graph.jpg}
-  \caption{Gráfico de Dificuldade pelo tempo de meineração}
+\caption{Gráfico de Dificuldade pelo tempo de mineração}
 \end{figure}
 
 \end{document}
