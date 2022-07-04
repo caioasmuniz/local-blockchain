@@ -27,22 +27,23 @@ const rl = readline.createInterface(process.stdin, process.stdout);
 let difficulty = 1;
 const strBlockChain = new Blockchain();
 
-rl.setPrompt(`
-  <---> strBlockChain <--->
+let strMenu = `
+<---> strBlockChain <--->
 
-  MENU
-  1 -> Ler blockchain de um arquivo
-  2 -> Minerar blocos pendentes
-  3 -> Selecionar dificuldade de mineração (atual: ${difficulty})
-  4 -> Criar novo bloco
-  5 -> Verificar integridade da blockchain
-  6 -> Exibir a blockchain
-  7 -> Salvar a blockchain em um arquivo
-  8 -> Alterar o conteudo da blockchain (para fins de teste)
+MENU
+1 -> Ler blockchain de um arquivo
+2 -> Minerar blocos pendentes
+3 -> Selecionar dificuldade de mineração (atual: ${difficulty})
+4 -> Criar novo bloco
+5 -> Verificar integridade da blockchain
+6 -> Exibir a blockchain
+7 -> Salvar a blockchain em um arquivo
+8 -> Alterar o conteudo da blockchain (para fins de teste)
 
-  Escolha uma opção: 
-  `);
+Escolha uma opção: 
+`;
 
+rl.setPrompt(strMenu);
 rl.prompt();
 
 rl.on("line", (option) => {
@@ -57,7 +58,7 @@ rl.on("line", (option) => {
 
     case 3:
       rl.question("Insira a nova dificuldade: ", (newDifficulty) => {
-        difficulty = newDifficulty;
+        difficulty = parseInt(newDifficulty);
       });
       break;
 
