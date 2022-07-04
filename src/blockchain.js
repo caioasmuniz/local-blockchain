@@ -89,12 +89,16 @@ class Blockchain {
   }
 
   readChainFromFile(path) {
-    let file = JSON.parse(fs.readFileSync(path, "utf8"));
-    this.chain = [];
-    for (const block of file) {
-      this.chain.push(new Block(block));
+    try {
+      let file = JSON.parse(fs.readFileSync(path, "utf8"));
+      this.chain = [];
+      for (const block of file) {
+        this.chain.push(new Block(block));
+        console.log("Blockchain adicionada via arquivo");
+      }
+    } catch (error) {
+      console.log("Erro ao carregar o arquivo");
     }
-    console.log(this.chain);
   }
 
   writeChainToFile(path) {
@@ -117,11 +121,19 @@ class Blockchain {
    * @param {number} difficulty
    */
   minePendingBlockContents(difficulty) {
-    if (this.pendingBlockContents.length === 0) {
-      console.log("No Block Contents to Mine!");
-      return;
+    while (this.pendingBlockContents.length > 0) {
+      this.mineOneBlock();
     }
+    console.log("No Block Contents to Mine!");
+    return;
+  }
 
+  /**
+   * Takes all the pending BlockContents, puts them in a Block and starts the
+   * mining process.
+   * @param {number} difficulty
+   */
+  mineOneBlock(difficulty) {
     const block = new Block({
       timestamp: Date.now(),
       blockContent: this.pendingBlockContents.shift(),
