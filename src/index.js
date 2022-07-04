@@ -21,30 +21,32 @@
 // SOFTWARE.
 
 const { Blockchain } = require("./blockchain");
-
 // Create new instance of Blockchain class
 const difficulty = 4;
-const strBlockChain = new Blockchain(difficulty);
+const strBlockChain = new Blockchain();
+
+// strBlockChain.readChainFromFile("./chain.json");
 
 // Mine first block
-strBlockChain.minePendingBlockContents();
+strBlockChain.minePendingBlockContents(difficulty);
 
 // Create a transaction & sign it with your key
 const blockContent = "Este eh o conteudo do primeiro bloco";
 strBlockChain.addBlockContent(blockContent);
 
 // Mine block
-strBlockChain.minePendingBlockContents();
+strBlockChain.minePendingBlockContents(difficulty);
 
 // Create second transaction
 const blockContent2 = "Este eh o conteudo do segundo bloco";
 strBlockChain.addBlockContent(blockContent2);
 
 // Mine block
-strBlockChain.minePendingBlockContents();
+strBlockChain.minePendingBlockContents(difficulty);
 
 console.log();
 console.log(strBlockChain.chain);
+strBlockChain.writeChainToFile("./chain.json");
 
 // Uncomment this line if you want to test tampering with the chain
 // savjeeCoin.chain[1].transactions[0].amount = 10;
